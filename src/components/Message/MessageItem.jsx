@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 
 class MessageItem extends Component {
+    onDeleteMessage = () => {
+        this.props.onDeleteMessage(this.props.message);
+    };
     render() {
         const { isUser, message } = this.props;
         return (
@@ -25,10 +28,15 @@ class MessageItem extends Component {
                                 aria-labelledby="dropdownMenuButton"
                             >
                                 <span className="dropdown-item">Update</span>
-                                <span className="dropdown-item">Delete</span>
+                                <span
+                                    className="dropdown-item"
+                                    onClick={this.onDeleteMessage}
+                                >
+                                    Delete
+                                </span>
                             </div>
                         </span>
-                        <small className="float-left">{message.content}</small>
+                        <small>{message.content}</small>
                     </div>
                 </td>
             </tr>

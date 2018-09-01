@@ -1,32 +1,41 @@
-import React from "react";
+import React, { Component } from "react";
 
-const UserItem = () => (
-    <tr>
-        <td>
-            <div style={{ margin: -5, backgroundColor: "transparent" }}>
-                <img
-                    style={{ width: 35, height: 35, marginRight: 10 }}
-                    className="img-fluid rounded-circle shadow float-left"
-                    alt=""
-                    src="https://firebasestorage.googleapis.com/v0/b/web-chat-realtime-4c3e2.appspot.com/o/userAvatars%2F87f143d912dddab35168f2880d2e21be.jpg?alt=media&token=dfad639e-9d1b-46c0-8ea0-b451bdf3d61f"
-                />
-                <div
-                    className="d-flex align-items-center black-text"
-                    style={{ height: 35 }}
-                >
-                    <small>Hoang Vy Nguyen</small>
-                    <hr />
+class UserItem extends Component {
+    onSelectMessager = () => {
+        this.props.onSelectMessager(this.props.user);
+    };
+    render() {
+        const { user } = this.props;
+        return (
+            <tr>
+                <td>
                     <div
-                        style={{
-                            width: 8,
-                            height: 8,
-                            backgroundColor: "#42B72A",
-                            borderRadius: 8
-                        }}
-                    />
-                </div>
+                        style={{ margin: -10, backgroundColor: "transparent" }}
+                        onClick={this.onSelectMessager}
+                    >
+                        <img
+                            style={{ width: 40, height: 40, marginRight: 10 }}
+                            className="img-fluid rounded-circle shadow float-left"
+                            alt=""
+                            src={user.avatarURL}
+                        />
+                        <div
+                            className="d-flex align-items-center black-text"
+                            style={{ height: 40 }}
+                        >
+                            <small>{user.name}</small>
+                            <hr />
+                            <div
+                                style={{
+                                    width: 7,
+                                    height: 7,
+                                    backgroundColor: "#42B72A",
+                                    borderRadius: "100%"
+                                }}
+                            />
+                        </div>
 
-                {/* <div className="container">
+                        {/* <div className="container">
             <div className="row">
                 <div className="col-md-3">
                     <img
@@ -42,9 +51,11 @@ const UserItem = () => (
                 </div>
             </div>
         </div> */}
-            </div>
-        </td>
-    </tr>
-);
+                    </div>
+                </td>
+            </tr>
+        );
+    }
+}
 
 export default UserItem;

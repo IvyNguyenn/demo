@@ -9,13 +9,15 @@ class Message extends Component {
         super(props);
         this.state = {
             messages: [],
-            isAlterShow: false
+            selectedMessage: undefined,
+            isAlertShow: true
         };
         this.itemRef = firebaseApp.database();
     }
     addDB = message => {
         this.itemRef.ref("messages").push({
-            message
+            message,
+            userId: ["LLFoZtONkupawYqMsUF", "LLGAjB4B8rLSUxbHdHl"]
         });
     };
     removeDB = message => {
@@ -55,49 +57,60 @@ class Message extends Component {
             this.setState({ messages: messageList });
         });
     };
+    onSelecMessage = message => {
+        this.setState({ selectedMessage: message });
+    };
+    onDeleteMessage = message => {
+        //this.setState({ selectedMessage: message });
+        this.removeDB(message);
+    };
     onSendMessage = message => {
         this.addDB(message);
     };
     onToggleAlert = () => {
-        this.setState({ isAlterShow: !this.state.isAlterShow });
+        this.setState({ isAlertShow: !this.state.isAlertShow });
     };
     componentDidMount() {
         this.listenForItems();
-        this.itemRef.ref("users").push({
-            name: "Hoang Vy Nguyen"
-        });
     }
     render() {
-        const { messages, isAlterShow } = this.state;
+        const { messages, isAlertShow } = this.state;
         return (
             <div className="col-md-10 border-left">
                 <div className="scrollbar" id="style-1">
                     <div style={{ height: 590 }}>
                         <MessageList>
-                            <Items messages={messages} />
+                            <div
+                                className="container alert alert-default alert-dismissible fade show"
+                                role="alert"
+                                style={{
+                                    display: isAlertShow ? "block" : "none"
+                                }}
+                            >
+                                <span className="alert-inner--icon">
+                                    <i className="ni ni-like-2" />
+                                </span>
+                                <span className="alert-inner--text">
+                                    <strong>Default!</strong> This is a default
+                                    alert—check it out!
+                                </span>
+                                <button
+                                    type="button"
+                                    className="close"
+                                    aria-label="Close"
+                                    onClick={this.onToggleAlert}
+                                >
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <Items
+                                messages={messages}
+                                onDeleteMessage={this.onDeleteMessage}
+                            />
                         </MessageList>
                     </div>
                 </div>
                 <AddMessageForm onSendMessage={this.onSendMessage} />
-
-                <div
-                    className="container alert alert-default alert-dismissible fade show"
-                    role="alert"
-                    style={{ display: isAlterShow ? "none" : "block" }}
-                >
-                    <span className="alert-inner--text">
-                        <strong>Default!</strong> This is a default alert—check
-                        it out!
-                    </span>
-                    <button
-                        type="button"
-                        className="close"
-                        aria-label="Close"
-                        onClick={this.onToggleAlert}
-                    >
-                        <span>×</span>
-                    </button>
-                </div>
             </div>
         );
     }
@@ -110,6 +123,7 @@ const Items = props =>
                 key={index}
                 isUser={message.isUser}
                 message={message}
+                onDeleteMessage={props.onDeleteMessage}
             />
         );
     });

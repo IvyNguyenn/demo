@@ -50,7 +50,7 @@ class AddMessageForm extends Component {
                         /> */}
                         <input
                             type="text"
-                            class="form-control"
+                            className="form-control"
                             placeholder="Write a message here ..."
                             name="message"
                             value={message}
