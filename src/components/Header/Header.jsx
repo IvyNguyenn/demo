@@ -2,33 +2,19 @@ import React, { Component } from "react";
 
 class Header extends Component {
     render() {
+        const { user, currGroup } = this.props;
         return (
             <header className="header-global">
                 <nav
                     id="navbar-main"
-                    className="navbar navbar-main navbar-expand-lg navbar-dark headroom bg-default"
+                    className="navbar navbar-main navbar-expand-lg navbar-transparent navbar-light headroom"
                 >
-                    <div className="position-relative">
-                        <section className="section section-sm section-shaped">
-                            <div className="shape shape-style-1 shape-default">
-                                <span />
-                                <span />
-                                <span />
-                                <span />
-                                <span />
-                                <span />
-                                <span />
-                                <span />
-                                <span />
-                            </div>
-                        </section>
-                    </div>
                     <div className="container">
                         <a
                             className="navbar-brand mr-lg-5"
                             href="../index.html"
                         >
-                            <img alt="" src="../assets/img/brand/white.png" />
+                            <img src="../assets/img/brand/white.png" />
                         </a>
                         <button
                             className="navbar-toggler"
@@ -49,10 +35,7 @@ class Header extends Component {
                                 <div className="row">
                                     <div className="col-6 collapse-brand">
                                         <a href="../index.html">
-                                            <img
-                                                alt=""
-                                                src="../assets/img/brand/blue.png"
-                                            />
+                                            <img src="../assets/img/brand/blue.png" />
                                         </a>
                                     </div>
                                     <div className="col-6 collapse-close">
@@ -72,22 +55,48 @@ class Header extends Component {
                                 </div>
                             </div>
                             <ul className="navbar-nav navbar-nav-hover align-items-lg-center">
-                                <li className="nav-item dropdown">
-                                    <a
-                                        href=""
-                                        className="nav-link"
-                                        data-toggle="dropdown"
-                                        role="button"
+                                <li>
+                                    <div
+                                        style={{
+                                            backgroundColor: "transparent"
+                                        }}
                                     >
+                                        <img
+                                            style={{
+                                                width: 40,
+                                                height: 40,
+                                                marginRight: 10,
+                                                backgroundColor: "white"
+                                            }}
+                                            className="img-fluid rounded-circle shadow float-left"
+                                            alt=""
+                                            src={
+                                                user.avatar
+                                                    ? user.avatar
+                                                    : "../assets/img/brand/default-avatar.png"
+                                            }
+                                        />
+                                        <div
+                                            className="d-flex align-items-center black-text"
+                                            style={{ height: 40 }}
+                                        >
+                                            <small className="white-text">
+                                                {user.username}
+                                            </small>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li className="nav-item dropdown">
+                                    <a className="nav-link">
                                         <i className="ni ni-ui-04 d-lg-none" />
-                                        <span className="nav-link-inner--text">
-                                            Components
+                                        <span className="nav-link-inner--text white-text">
+                                            <b>{currGroup}</b>
                                         </span>
                                     </a>
                                 </li>
                                 <li className="nav-item dropdown">
                                     <a
-                                        href=""
+                                        href="#"
                                         className="nav-link"
                                         data-toggle="dropdown"
                                         role="button"
@@ -97,6 +106,32 @@ class Header extends Component {
                                             Examples
                                         </span>
                                     </a>
+                                    <div className="dropdown-menu">
+                                        <a
+                                            href="../examples/landing.html"
+                                            className="dropdown-item"
+                                        >
+                                            Landing
+                                        </a>
+                                        <a
+                                            href="../examples/profile.html"
+                                            className="dropdown-item"
+                                        >
+                                            Profile
+                                        </a>
+                                        <a
+                                            href="../examples/login.html"
+                                            className="dropdown-item"
+                                        >
+                                            Login
+                                        </a>
+                                        <a
+                                            href="../examples/register.html"
+                                            className="dropdown-item"
+                                        >
+                                            Register
+                                        </a>
+                                    </div>
                                 </li>
                             </ul>
                             <ul className="navbar-nav align-items-lg-center ml-lg-auto">
@@ -104,7 +139,7 @@ class Header extends Component {
                                     <a
                                         className="nav-link nav-link-icon"
                                         href="https://www.facebook.com/creativetim"
-                                        target=""
+                                        target="_blank"
                                         data-toggle="tooltip"
                                         title="Like us on Facebook"
                                     >
@@ -118,7 +153,7 @@ class Header extends Component {
                                     <a
                                         className="nav-link nav-link-icon"
                                         href="https://www.instagram.com/creativetimofficial"
-                                        target=""
+                                        target="_blank"
                                         data-toggle="tooltip"
                                         title="Follow us on Instagram"
                                     >
@@ -132,7 +167,7 @@ class Header extends Component {
                                     <a
                                         className="nav-link nav-link-icon"
                                         href="https://twitter.com/creativetim"
-                                        target=""
+                                        target="_blank"
                                         data-toggle="tooltip"
                                         title="Follow us on Twitter"
                                     >
@@ -146,7 +181,7 @@ class Header extends Component {
                                     <a
                                         className="nav-link nav-link-icon"
                                         href="https://github.com/creativetimofficial/argon-design-system"
-                                        target=""
+                                        target="_blank"
                                         data-toggle="tooltip"
                                         title="Star us on Github"
                                     >
@@ -157,18 +192,16 @@ class Header extends Component {
                                     </a>
                                 </li>
                                 <li className="nav-item d-none d-lg-block ml-lg-4">
-                                    <a
-                                        href="https://www.creative-tim.com/product/argon-design-system"
-                                        target=""
-                                        className="btn btn-neutral btn-icon"
+                                    <button
+                                        type="button"
+                                        className="btn btn-outline-primary btn-sm btn-icon"
+                                        onClick={this.props.onLogout}
                                     >
                                         <span className="btn-inner--icon">
-                                            <i className="fa fa-cloud-download mr-2" />
+                                            <i className="fa fa-sign-out mr-2" />
                                         </span>
-                                        <span className="nav-link-inner--text">
-                                            Download
-                                        </span>
-                                    </a>
+                                        Sign out
+                                    </button>
                                 </li>
                             </ul>
                         </div>

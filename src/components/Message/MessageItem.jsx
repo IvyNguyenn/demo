@@ -5,39 +5,50 @@ class MessageItem extends Component {
         this.props.onDeleteMessage(this.props.message);
     };
     render() {
-        const { isUser, message } = this.props;
+        const { user, message } = this.props;
+        const isUser = user.email === message.email;
         return (
             <tr>
                 <td>
-                    <div
-                        className={`card balloon-message black-text ${
-                            isUser ? "float-right" : ""
-                        }`}
-                    >
-                        <span>
-                            <span
-                                className="btn-control"
-                                data-toggle="dropdown"
-                                aria-haspopup="true"
-                                aria-expanded="false"
-                            >
-                                ...
-                            </span>
-                            <div
-                                className="dropdown-menu"
-                                aria-labelledby="dropdownMenuButton"
-                            >
-                                <span className="dropdown-item">Update</span>
-                                <span
-                                    className="dropdown-item"
-                                    onClick={this.onDeleteMessage}
-                                >
-                                    Delete
-                                </span>
+                    {isUser ? (
+                        <div className="balloon-message balloon-message-primary max-width-balloon-message">
+                            <small>{message.message}</small>
+                        </div>
+                    ) : (
+                        <div className="d-flex justify-content-start ">
+                            <div className="d-flex align-items-end">
+                                <img
+                                    style={{
+                                        width: 35,
+                                        height: 35,
+                                        marginRight: 10,
+                                        backgroundColor: "pink"
+                                    }}
+                                    className="img-fluid rounded-circle"
+                                    alt=""
+                                    src="../assets/img/brand/default-avatar.png"
+                                />
                             </div>
-                        </span>
-                        <small>{message.content}</small>
-                    </div>
+                            <div className="max-width-balloon-message">
+                                <small>{message.username}</small>
+                                <div className="balloon-message balloon-message-default">
+                                    <small>{message.message}</small>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+                    {/* {isUser ? (
+                        <div className="card balloon-message balloon-message-primary">
+                            <small>{message.message}</small>
+                        </div>
+                    ) : (
+                        <div>
+                            <small className="float-left">{message.user}</small>
+                            <div className="card balloon-message balloon-message-default">
+                                <small>{message.message}</small>
+                            </div>
+                        </div>
+                    )} */}
                 </td>
             </tr>
         );

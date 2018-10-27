@@ -1,19 +1,16 @@
 import React, { Component } from "react";
 
-class UserItem extends Component {
-    onSelectMessager = () => {
-        this.props.onSelectMessager(this.props.user);
+class GroupItem extends Component {
+    onSelectGroup = () => {
+        this.props.onSelectGroup(this.props.group);
     };
     render() {
-        const { user } = this.props;
+        const { group } = this.props;
         const imageSize = 40;
         return (
             <tr>
                 <td>
-                    <div
-                        style={{ margin: -10 }}
-                        onClick={this.onSelectMessager}
-                    >
+                    <div style={{ margin: -10 }} onClick={this.onSelectGroup}>
                         <img
                             style={{
                                 width: imageSize,
@@ -24,11 +21,15 @@ class UserItem extends Component {
                             alt=""
                             src="../assets/img/brand/default-avatar.png"
                         />
+
                         <div
                             className="d-flex align-items-center black-text"
                             style={{ height: imageSize }}
                         >
-                            <small>{user.username}</small>
+                            <small>
+                                <b>Group: </b>
+                            </small>
+                            <small>{group}</small>
                             <hr />
                             <div
                                 style={{
@@ -46,4 +47,4 @@ class UserItem extends Component {
     }
 }
 
-export default UserItem;
+export default GroupItem;

@@ -40,14 +40,6 @@ class AddMessageForm extends Component {
             <form onSubmit={this.onSubmit}>
                 <div className="row">
                     <div className="form-group col-md-10">
-                        {/* <textarea
-                            className="form-control"
-                            rows={2}
-                            placeholder="Write a message here ..."
-                            name="message"
-                            value={message}
-                            onChange={this.onHandleChange}
-                        /> */}
                         <input
                             type="text"
                             className="form-control"
